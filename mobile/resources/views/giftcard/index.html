@@ -1,0 +1,73 @@
+{include file="page_header"}
+<body>
+<div class="con" id="pjax-container">
+    <div id="show">
+        <section class="user-center j-f-tel margin-lr">
+             <div class="b-color-f  user-login-ul">
+                <div class="text-all dis-box j-text-all login-li">
+                    <div class="box-flex input-text">
+                        <input class="j-input-text" name="gift_card" type="text" nullmsg="{$lang.gift_number_null}" placeholder="{$lang.gift_number}"/>
+                        <i class="iconfont icon-guanbi1 close-common j-is-null"></i>
+                    </div>
+                </div>
+                <div class="text-all dis-box j-text-all login-li m-top10">
+                    <div class="box-flex input-text">
+                        <input class="j-input-text" name="gift_pwd" datatype="*" nullmsg="{$lang.gift_pwd_null}" type="text"
+                               placeholder="{$lang.gift_pwd}"/>
+                        <i class="iconfont icon-guanbi1 close-common j-is-null"></i>
+                    </div>
+                </div>
+            </div>
+            <input type="hidden" name="enabled_sms" value="1"/>
+            <button id="submit" class="btn-submit min-two-btn br-5">提交</button>
+        </section>
+    </div>
+    <div class="div-messages"></div>
+</div>
+<script>
+    $(function(){
+//        function checkGiftLogin(){
+//            var gift_card = localStorage.getItem("gift_card");
+//            if(gift_card){
+//                window.location.href = "{url('giftcard/index/list')}";
+//            }
+//        }
+//        checkGiftLogin();
+
+        $("#submit").click(function () {
+            var gift_card = $("input[name=gift_card]");
+            var gift_pwd = $('input[name=gift_pwd]');
+
+            if (gift_card.val() == '') {
+                d_messages(gift_card.attr("nullmsg"), 2);
+                return false;
+            }
+            if (gift_pwd.val() == '') {
+                d_messages(gift_pwd.attr("nullmsg"), 2);
+                return false;
+            }
+
+            $.ajax({
+                url : "{url('login')}",
+                data :　{gift_card : $('input[name=gift_card]').val(), gift_pwd : $('input[name=gift_pwd]').val()},
+                dataType : 'json',
+                type : 'post',
+                success : function(data){
+                    if(data.error == 0){
+                        localStorage.setItem("gift_card", gift_card.val());
+                        d_messages(data.content);
+                        setTimeout(function(){
+                            window.location.href = "{url('list')}";
+                        }, 500)
+                    }else if(data.error == 1){
+                        d_messages(data.content);
+                    }
+                }
+            });
+            return false;
+        });
+    })
+</script>
+</body>
+
+</html>

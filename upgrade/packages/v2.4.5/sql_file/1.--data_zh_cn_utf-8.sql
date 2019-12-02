@@ -1,0 +1,1 @@
+UPDATE dsc_shop_config SET type = 'hidden', value = '0' WHERE code = 'wap_category';

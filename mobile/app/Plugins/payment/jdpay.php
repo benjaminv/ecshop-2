@@ -1,0 +1,7 @@
+<?php
+//websc 
+class jdpay
+{}
+
+
+?>

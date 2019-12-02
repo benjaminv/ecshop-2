@@ -1,0 +1,1 @@
+ALTER TABLE `dsc_oss_configure` ADD `is_delimg` TINYINT(1) UNSIGNED NULL DEFAULT '0' AFTER `is_use`, ADD INDEX `is_delimg` (`is_delimg`);

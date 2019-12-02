@@ -1,0 +1,10 @@
+UPDATE `dsc_shop_config` SET `type` = 'hidden' WHERE `code` = 'wap_config';
+UPDATE `dsc_shop_config` SET `type` = 'hidden' WHERE `code` = 'licensed';
+UPDATE `dsc_shop_config` SET `type` = 'hidden' WHERE `code` = 'editing_tools';
+UPDATE `dsc_shop_config` SET `type` = 'hidden' WHERE `code` = 'page_style';
+UPDATE `dsc_shop_config` SET `type` = 'hidden' WHERE `code` = 'watermark';
+UPDATE `dsc_shop_config` SET `type` = 'hidden' WHERE `code` = 'anonymous_buy';
+UPDATE `dsc_shop_config` SET `type` = 'hidden' WHERE `code` = 'show_goods_in_cart';
+UPDATE `dsc_shop_config` SET `type` = 'hidden' WHERE `code` = 'show_attr_in_cart';
+UPDATE `dsc_shop_config` SET `type` = 'hidden' WHERE `code` = 'login_limited_num';
+UPDATE `dsc_shop_config` SET `type` = 'hidden' WHERE `code` = 'enable_order_check';

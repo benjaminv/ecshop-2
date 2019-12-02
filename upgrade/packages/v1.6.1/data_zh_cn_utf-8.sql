@@ -1,0 +1,3 @@
+INSERT INTO `dsc_admin_action` (`action_id`, `parent_id`, `action_code`, `relevance`) VALUES (NULL, '10', 'table_prefix', '');
+
+INSERT INTO `dsc_shop_config` (`id`, `parent_id`, `code`, `type`, `store_range`, `store_dir`, `value`, `sort_order`) VALUES ('422', '4', 'invoice_type', 'manual', '', '', 'a:2:{s:4:"type";a:5:{i:0;s:0:"";i:1;s:12:"电脑配件";i:2;s:6:"明细";i:3;s:12:"办公用品";i:4;s:6:"耗材";}s:4:"rate";a:5:{i:0;d:0;i:1;d:0.200000000000000011102230246251565404236316680908203125;i:2;d:0.1000000000000000055511151231257827021181583404541015625;i:3;d:0.25;i:4;d:0.299999999999999988897769753748434595763683319091796875;}} ', '1');

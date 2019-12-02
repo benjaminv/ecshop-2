@@ -1,0 +1,21 @@
+CREATE TABLE IF NOT EXISTS `dsc_touch_topic` (
+  `topic_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `user_id` int(11) unsigned NOT NULL,
+  `title` varchar(255) NOT NULL DEFAULT '''''',
+  `intro` text NOT NULL,
+  `start_time` int(11) NOT NULL DEFAULT '0',
+  `end_time` int(10) NOT NULL DEFAULT '0',
+  `data` text NOT NULL,
+  `template` varchar(255) NOT NULL DEFAULT '''''',
+  `css` text NOT NULL,
+  `topic_img` varchar(255) DEFAULT NULL,
+  `title_pic` varchar(255) DEFAULT NULL,
+  `base_style` char(6) DEFAULT NULL,
+  `htmls` mediumtext,
+  `keywords` varchar(255) DEFAULT NULL,
+  `description` varchar(255) DEFAULT NULL,
+  `review_status` tinyint(1) unsigned NOT NULL DEFAULT '1',
+  `review_content` varchar(1000) NOT NULL DEFAULT '',
+  KEY `topic_id` (`topic_id`),
+  KEY `review_status` (`review_status`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;

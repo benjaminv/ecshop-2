@@ -1,0 +1,92 @@
+{include file="page_header"}
+<script>
+    function checkGiftLogin(){
+        var gift_card = localStorage.getItem("gift_card");
+        if(!gift_card){
+            window.location.href = "{url('giftcard/index/index')}";
+        }
+    }
+    checkGiftLogin();
+</script>
+<header class="history-header dis-box">
+    <div class="box-flex f-04 col-9">礼品卡卡号 : <em class="col-7 j-card-number"></em></div>
+    <div class="his-btn f-03 color-red  j-logout">退出礼品卡</div>
+</header>
+<section class="product-list j-product-list  product-list-small" data="2">
+    <div class="history_info">
+        <script id="j-product" type="text/html">
+            <%if totalPage > 0 && list != ''%>
+			<ul>
+                <%each list as goods%>
+                <li class="wallet-bt">
+                    <div class="product-div">
+                        <a href="<%goods.url%>"><img class="product-list-img" src="<%goods.goods_thumb%>" /></a>
+                        <div class="product-text history-title-box">
+                            <a href="<%goods.url%>"><h4><%goods.goods_name%></h4></a>
+                            <p>
+                            <span class="p-price t-first ">
+                                <%if goods.promote_price%>
+                                <%#goods.promote_price%>
+                                <%else%>
+                                <%#goods.shop_price%>
+                                <%/if%>
+                                <small><del><%#goods.market_price%></del></small>
+                            </span>
+                            <span class="extra-btn j-th-btn" data-id="<%#goods.goods_id%>">提货</span>
+                            </p>
+                        </div>
+                    </div>
+                </li>
+                <%/each%>
+            </ul>
+            <%else%>
+            <div class="no-div-message">
+                <i class="iconfont icon-biaoqingleiben"></i>
+                <p>亲，此处没有内容～！</p>
+            </div>
+            <%/if%>
+        </script>
+    </div>
+</section>
+
+    <!--快捷导航-->
+    {include file="float_nav"}
+
+<script>
+    $(function(){
+        $(".j-card-number").text(localStorage.getItem("gift_card"));
+
+        $('.history_info').infinite({url: "{url('giftcard/index/list')}", template:'j-product'});
+
+
+        //退出礼品卡
+        $(".j-logout").click(function(){
+            layer.open({
+                content: '确定退出礼品卡？',
+                btn: ['确定', '取消'],
+                shadeClose: false,
+                yes: function() {
+                  $.post("{url('giftcard/index/logout')}", {},
+                     function(result){
+                         if(result.error == 0){
+                            localStorage.removeItem("gift_card");
+                            window.location.href = "{url('giftcard/index/index')}";
+                         }else{
+                             d_message(result.content)
+                         }
+                     }, 'json');
+                 },
+                no: function() {
+
+                }
+            });
+        });
+        // 提货
+        $(document).on("click", ".j-th-btn", function(){
+            var id = $(this).attr("data-id");
+            window.location.href = "{url('giftcard/index/consignee')}"+"&id="+id
+        });
+    })
+</script>
+</body>
+</html>

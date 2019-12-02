@@ -1,0 +1,174 @@
+<!doctype html>
+<html>
+<head>{include file ='library/admin_html_head.lbi'}</head>
+ 
+<body class="iframe_body">
+	<div class="warpper">
+    	<div class="title"><a href="goods_batch.php?act=add" class="s-back">{$lang.back}</a>{$lang.goods_alt} - {$ur_here}</div>
+        <div class="content">
+        	<div class="explanation" id="explanation">
+            	<div class="ex_tit"><i class="sc_icon"></i><h4>{$lang.operating_hints}</h4><span id="explanationZoom" title="{$lang.fold_tips}"></span></div>
+                <ul>
+                	<li>{$lang.operation_prompt_content.separate.0}</li>
+                </ul>
+            </div>
+            <div class="flexilist">
+                <div class="common-content">
+                    <div class="mian-info">
+						<div class="list-div">
+						{$lang.current_modification_data}<em class="record_count"></em>{$lang.tiao}
+						</div>
+						<div style=" width:100px; height:10px; clear:both; overflow:hidden;"></div>
+						<div class="list-div">
+						<table id="listTable">
+							<tr>
+                            	<th width="3%"><div class="tDiv tc">{$lang.record_id}<div></th>
+                            	<th width="10%"><div class="tDiv">{$lang_list.goods_name}<div></th>
+                                <th><div class="tDiv tc">{$lang_list.goods_sn}<div></th>
+                                <th><div class="tDiv tc">{$lang_list.brand_name}<div></th>
+                                <th><div class="tDiv tc">{$lang_list.market_price}<div></th>
+                                <th><div class="tDiv tc">{$lang_list.shop_price}<div></th>
+                                <th><div class="tDiv tc">{$lang_list.goods_number}<div></th>
+                                <th><div class="tDiv tc">{$lang_list.is_best}<div></th>
+                                <th><div class="tDiv tc">{$lang_list.is_new}<div></th>
+                                <th><div class="tDiv tc">{$lang_list.is_hot}<div></th>
+                                <th><div class="tDiv tc">{$lang_list.is_on_sale}<div></th>
+                                <th><div class="tDiv tc">{$lang_list.is_alone_sale}<div></th>
+                                <th><div class="tDiv tc">{$lang_list.is_real}<div></th>
+                                <th><div class="tDiv tc">{$lang.update_type}</div></th>
+							</tr>
+						</table>
+						</div>
+                    </div>
+                </div>
+            </div>
+		</div>
+	</div>
+	{include file ='library/pagefooter.lbi'}
+    {insert_scripts files="jquery.purebox.js"}
+    <script type="text/javascript">
+        $(function(){
+            start({$page});
+			ajax_title();
+        });
+        
+        function start(page)
+        {
+           Ajax.call('goods_batch.php?act=goods_batch_separate', 'page=' + page + '&guid=' + '{$guid|default:0}', start_response, 'POST', 'JSON');
+        }
+        
+        /**
+         * 处理反馈信息
+         * @param: result
+         * @return
+         */
+        function start_response(result)
+        {
+			
+			$(".record_count").html(result.record_count);
+			
+            if(result.list){
+                var tbl = document.getElementById("listTable"); //获取表格对象
+                var row = tbl.insertRow(-1);
+                
+				if(result.filter_page){
+					cell = row.insertCell(0);
+					cell.align = "center";
+					cell.innerHTML = "<div class='tDiv'>" + result.filter_page + "</div>";
+					cell = row.insertCell(1);
+					cell.innerHTML = "<div class='tDiv'>"+ result.list.goods_name + "</div>";
+					cell = row.insertCell(2);
+					cell.align = "center";
+					cell.innerHTML = "<div class='tDiv'>"+ result.list.goods_sn + "</div>";
+					cell = row.insertCell(3);
+					cell.align = "center";
+					cell.innerHTML = "<div class='tDiv'>"+ result.list.brand_name + "</div>";
+					cell = row.insertCell(4);
+					cell.align = "center";
+					cell.innerHTML = "<div class='tDiv'>"+ result.list.market_price + "</div>";
+					cell = row.insertCell(5);
+					cell.align = "center";
+					cell.innerHTML = "<div class='tDiv'>"+ result.list.shop_price + "</div>";
+					cell = row.insertCell(6);
+					cell.align = "center";
+					cell.innerHTML = "<div class='tDiv'>"+ result.list.goods_number + "</div>";
+					cell = row.insertCell(7);
+					cell.align = "center";
+					
+					if(result.list.is_best == 1){
+						var is_best = '是';
+					}else{
+						var is_best = '否';
+					}
+					
+					cell.innerHTML = "<div class='tDiv'>"+ is_best + "</div>";
+					cell = row.insertCell(8);
+					cell.align = "center";
+					
+					if(result.list.is_new == 1){
+						var is_new = '是';
+					}else{
+						var is_new = '否';
+					}
+					
+					cell.innerHTML = "<div class='tDiv'>"+ is_new + "</div>";
+					cell = row.insertCell(9);
+					cell.align = "center";
+					
+					if(result.list.is_hot == 1){
+						var is_hot = '是';
+					}else{
+						var is_hot = '否';
+					}
+					
+					cell.innerHTML = "<div class='tDiv'>"+ is_hot + "</div>";
+					cell = row.insertCell(10);
+					cell.align = "center";
+					
+					if(result.list.is_on_sale == 1){
+						var on_sale = '是';
+					}else{
+						var on_sale = '否';
+					}
+					
+					cell.innerHTML = "<div class='tDiv'>"+ on_sale + "</div>";
+					cell = row.insertCell(11);
+					cell.align = "center";
+					
+					if(result.list.is_alone_sale == 1){
+						var alone_sale = '普通商品';
+					}else{
+						var alone_sale = '非普通商品';
+					}
+					
+					cell.innerHTML = "<div class='tDiv'>"+ alone_sale + "</div>";
+					cell = row.insertCell(12);
+					cell.align = "center";
+					
+					if(result.list.is_real == 1){
+						var real = '实体商品';
+					}else{
+						var real = '非实体商品';
+					}
+					
+					cell.innerHTML = "<div class='tDiv'>"+ real + "</div>";
+					cell = row.insertCell(13);
+					cell.align = "center";
+					cell.innerHTML = "<div class='tDiv'>"+ result.status_lang + "</div>";
+				}
+				
+                if(result.is_stop == 1){
+                    start(result.page);
+                }	
+            }
+            
+            if(result.is_stop == 0){
+				$("#title_name").addClass("red");
+                $("#title_name").html(title_name_one);
+            }else{
+				$("#title_name").html(title_name_two);
+			}
+        }
+    </script>
+</body>
+</html>

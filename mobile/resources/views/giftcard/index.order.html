@@ -1,0 +1,78 @@
+{include file="page_header"}
+
+<section class="product-list j-product-list  product-list-small" data="2">
+    <div class="history_info">
+        <script id="j-product" type="text/html">
+            <%if totalPage > 0 && list != ''%>
+			<ul>
+                <%each list as goods%>
+                <li class="wallet-bt">
+                    <div class="product-div">
+                        <a href="<%goods.url%>"><img class="product-list-img" src="<%goods.goods_thumb%>" /></a>
+                        <div class="product-text history-title-box">
+                            <a href="<%goods.url%>"><h4><%goods.goods_name%></h4></a>
+                            <p>
+                            <span class="t-remark">卡号：<%goods.gift_sn%></span>
+                            <span class="fr j-state">
+                                <%if goods.status == 1%>
+                                    <span class="t-remark">待发货</span>
+                                <%else if goods.status == 2%>
+                                    <span class="extra-btn j-sh-btn" data-id="<%#goods.gift_gard_id%>">确认收货</span>
+                                <%else%>
+                                    <span class="t-remark">完成</span>
+                                <%/if%>
+
+                            </span>
+                            </p>
+
+                        </div>
+                    </div>
+                </li>
+                <%/each%>
+            </ul>
+            <%else%>
+            <div class="no-div-message">
+                <i class="iconfont icon-biaoqingleiben"></i>
+                <p>亲，此处没有内容～！</p>
+            </div>
+            <%/if%>
+        </script>
+    </div>
+</section>
+
+    <!--快捷导航-->
+    {include file="float_nav"}
+
+<script>
+    $(function(){
+
+        $('.history_info').infinite({url: "{url('giftcard/index/order')}", template:'j-product'});
+
+
+        //确认收货
+        $(document).on('click', '.j-sh-btn', function(){
+            var $this = $(this);
+            var take_id = $this.attr("data-id");
+            layer.open({
+                content: '确定收到商品了吗？',
+                btn: ['确定', '取消'],
+                shadeClose: false,
+                yes: function() {
+                  $.post("{url('giftcard/index/confirm')}", {take_id: take_id},
+                     function(result){
+                         if(result.error == 0){
+                             window.location.href = "{url('giftcard/index/order')}";
+                         }else{
+                             d_message(result.content)
+                         }
+                     }, 'json');
+                 },
+                no: function() {
+
+                }
+            });
+        });
+    })
+</script>
+</body>
+</html>

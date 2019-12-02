@@ -1,0 +1,1 @@
+INSERT INTO `dsc_shop_config` (`id`, `parent_id`, `code`, `type`, `store_range`, `store_dir`, `value`, `sort_order`) VALUES (NULL, '938', 'cat_belongs', 'hidden', '0,1', '', '0', '1');

@@ -1,0 +1,1 @@
+INSERT INTO `dsc_shop_config` (`id`, `parent_id`, `code`, `type`, `store_range`, `store_dir`, `value`, `sort_order`, `shop_group`) VALUES (NULL, '1001', 'area_pricetype', 'hidden', '0,1', '', '0', '1', 'goods');
